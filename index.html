@@ -9,7 +9,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
   <script>
     (function(){
-      emailjs.init("iQ5HIic_-s4LkWnVk"); // Public Key
+      emailjs.init("iQ5HIic_-s4LkWnVk"); // Public Key kamu
     })();
   </script>
 
@@ -68,7 +68,7 @@
       margin-top: 20px;
     }
 
-    /* Floating WhatsApp Channel Button */
+    /* Tombol WA Channel */
     .wa-float {
       position: fixed;
       bottom: 20px;
@@ -111,7 +111,7 @@
     </div>
   </div>
 
-  <!-- Tombol saluran WA di kanan bawah -->
+  <!-- Tombol WA Channel -->
   <a href="https://whatsapp.com/channel/0029Vaqe6AA5PO13FUcYkJ3b" class="wa-float" target="_blank" title="Kunjungi Saluran WhatsApp">
     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA Channel" />
   </a>
@@ -120,7 +120,7 @@
     document.getElementById('bannedForm').addEventListener('submit', function(e) {
       e.preventDefault();
 
-      emailjs.sendForm('service_zhjyeso', 'template_699scpn', this)
+      emailjs.sendForm('service_zhjyeso', 'template_sp7z7i9', this)
         .then(function() {
           document.getElementById('bannedForm').style.display = 'none';
           document.getElementById('success-message').style.display = 'block';
