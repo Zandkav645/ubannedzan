@@ -93,15 +93,14 @@
                 <label for="phone-number">Masukkan Nomor WhatsApp yang Terbanned:</label>
                 <input type="text" id="phone-number" placeholder="Contoh: +6281234567890" required>
             </div>
-            <button onclick="prepareUnbanRequest()">Buka Banned</button>
+            <button onclick="submitUnbanRequest()">Buka Banned</button>
             
             <div class="instructions">
                 <p>Petunjuk:</p>
                 <ol>
                     <li>Masukkan nomor WhatsApp yang terbanned</li>
                     <li>Klik tombol "Buka Banned"</li>
-                    <li>Teks laporan akan otomatis disalin</li>
-                    <li>Tempelkan teks di form WhatsApp Support</li>
+                    <li>Form WhatsApp Support akan terbuka dengan data terisi otomatis</li>
                     <li>Kirim laporan</li>
                 </ol>
             </div>
@@ -115,7 +114,7 @@
     </div>
 
     <script>
-        function prepareUnbanRequest() {
+        function submitUnbanRequest() {
             const phoneNumber = document.getElementById('phone-number').value;
             
             if (!phoneNumber) {
@@ -144,26 +143,43 @@ Please look into this, as it affects many innocent users.
 
 Thank you`;
             
-            // Copy the text to clipboard
-            navigator.clipboard.writeText(unbanMessage).then(function() {
-                // Open WhatsApp support page
-                window.open('https://www.whatsapp.com/contact/?subject=messenger', '_blank');
-                
-                // Show success message
-                document.getElementById('form-section').style.display = 'none';
-                document.getElementById('success-message').style.display = 'block';
-                
-                // Alert user to paste the text (optional)
-                setTimeout(function() {
-                    alert('Teks laporan telah disalin ke clipboard. Silakan tempel (paste) di form WhatsApp Support yang telah terbuka.');
-                }, 1000);
-            }).catch(function(err) {
-                console.error('Could not copy text: ', err);
-                // Fallback if clipboard fails
-                window.open('https://www.whatsapp.com/contact/?subject=messenger&body=' + encodeURIComponent(unbanMessage), '_blank');
-                document.getElementById('form-section').style.display = 'none';
-                document.getElementById('success-message').style.display = 'block';
-            });
+            // Create a hidden form to submit to WhatsApp
+            const form = document.createElement('form');
+            form.action = 'https://www.whatsapp.com/contact/submit';
+            form.method = 'POST';
+            form.target = '_blank';
+            
+            // Add phone number field
+            const phoneField = document.createElement('input');
+            phoneField.type = 'hidden';
+            phoneField.name = 'phone';
+            phoneField.value = phoneNumber;
+            form.appendChild(phoneField);
+            
+            // Add message field
+            const messageField = document.createElement('input');
+            messageField.type = 'hidden';
+            messageField.name = 'text';
+            messageField.value = unbanMessage;
+            form.appendChild(messageField);
+            
+            // Add platform field (assuming Android)
+            const platformField = document.createElement('input');
+            platformField.type = 'hidden';
+            platformField.name = 'platform';
+            platformField.value = 'Android';
+            form.appendChild(platformField);
+            
+            // Add the form to the body and submit it
+            document.body.appendChild(form);
+            form.submit();
+            
+            // Show success message
+            document.getElementById('form-section').style.display = 'none';
+            document.getElementById('success-message').style.display = 'block';
+            
+            // Remove the form after submission
+            setTimeout(() => document.body.removeChild(form), 1000);
         }
     </script>
 </body>
