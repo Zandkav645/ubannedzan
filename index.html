@@ -41,6 +41,7 @@
             border-radius: 5px;
             font-size: 16px;
             background-color: rgba(255,255,255,0.9);
+            color: #000;
         }
         button {
             background-color: #25D366;
@@ -52,6 +53,7 @@
             font-size: 16px;
             width: 100%;
             transition: background-color 0.3s;
+            margin-top: 10px;
         }
         button:hover {
             background-color: #128C7E;
@@ -79,6 +81,11 @@
             margin-top: 20px;
             font-size: 14px;
         }
+        #loading {
+            display: none;
+            text-align: center;
+            margin: 10px 0;
+        }
     </style>
 </head>
 <body>
@@ -93,15 +100,20 @@
                 <label for="phone-number">Masukkan Nomor WhatsApp yang Terbanned:</label>
                 <input type="text" id="phone-number" placeholder="Contoh: +6281234567890" required>
             </div>
+            
+            <div id="loading">
+                <p>Memproses, harap tunggu...</p>
+            </div>
+            
             <button onclick="submitUnbanRequest()">Buka Banned</button>
             
             <div class="instructions">
-                <p>Petunjuk:</p>
+                <p><strong>Petunjuk Penggunaan:</strong></p>
                 <ol>
-                    <li>Masukkan nomor WhatsApp yang terbanned</li>
+                    <li>Masukkan nomor WhatsApp yang terbanned (contoh: +6281234567890)</li>
                     <li>Klik tombol "Buka Banned"</li>
-                    <li>Form WhatsApp Support akan terbuka dengan data terisi otomatis</li>
-                    <li>Kirim laporan</li>
+                    <li>Tunggu hingga halaman WhatsApp Support terbuka</li>
+                    <li>Semua data sudah terisi otomatis, tinggal klik "Kirim"</li>
                 </ol>
             </div>
         </div>
@@ -121,6 +133,9 @@
                 alert('Silakan masukkan nomor WhatsApp yang terbanned');
                 return;
             }
+            
+            // Show loading indicator
+            document.getElementById('loading').style.display = 'block';
             
             // Prepare the unban message
             const unbanMessage = `I would like to report a serious abuse issue involving unofficial WhatsApp MOD apps (like GBWhatsApp, YoWhatsApp, Delta WhatsApp, etc.).
@@ -143,43 +158,25 @@ Please look into this, as it affects many innocent users.
 
 Thank you`;
             
-            // Create a hidden form to submit to WhatsApp
-            const form = document.createElement('form');
-            form.action = 'https://www.whatsapp.com/contact/submit';
-            form.method = 'POST';
-            form.target = '_blank';
+            // Create URL with all parameters
+            const whatsappUrl = `https://www.whatsapp.com/contact/?subject=messenger&phone=${encodeURIComponent(phoneNumber)}&text=${encodeURIComponent(unbanMessage)}&platform=Android`;
             
-            // Add phone number field
-            const phoneField = document.createElement('input');
-            phoneField.type = 'hidden';
-            phoneField.name = 'phone';
-            phoneField.value = phoneNumber;
-            form.appendChild(phoneField);
+            // Open WhatsApp support page in new tab
+            const newTab = window.open(whatsappUrl, '_blank');
             
-            // Add message field
-            const messageField = document.createElement('input');
-            messageField.type = 'hidden';
-            messageField.name = 'text';
-            messageField.value = unbanMessage;
-            form.appendChild(messageField);
-            
-            // Add platform field (assuming Android)
-            const platformField = document.createElement('input');
-            platformField.type = 'hidden';
-            platformField.name = 'platform';
-            platformField.value = 'Android';
-            form.appendChild(platformField);
-            
-            // Add the form to the body and submit it
-            document.body.appendChild(form);
-            form.submit();
-            
-            // Show success message
-            document.getElementById('form-section').style.display = 'none';
-            document.getElementById('success-message').style.display = 'block';
-            
-            // Remove the form after submission
-            setTimeout(() => document.body.removeChild(form), 1000);
+            // Check if tab was opened successfully
+            if (newTab) {
+                // Show success message after a delay
+                setTimeout(function() {
+                    document.getElementById('form-section').style.display = 'none';
+                    document.getElementById('success-message').style.display = 'block';
+                    document.getElementById('loading').style.display = 'none';
+                }, 2000);
+            } else {
+                // Fallback if popup blocked
+                document.getElementById('loading').style.display = 'none';
+                alert('Popup diblokir! Silakan izinkan popup untuk situs ini, lalu coba lagi.');
+            }
         }
     </script>
 </body>
