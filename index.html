@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -47,28 +47,12 @@
       cursor: pointer;
       font-size: 16px;
       width: 100%;
-      transition: background-color 0.3s;
     }
     button:hover {
       background-color: #128C7E;
     }
-    .success-message {
-      display: none;
-      text-align: center;
-      color: #25D366;
-      font-weight: bold;
-      margin-top: 20px;
-    }
-    .logo {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .logo img {
-      width: 100px;
-      height: 100px;
-    }
 
-    /* Floating WhatsApp Button */
+    /* Tombol WA Channel */
     .wa-float {
       position: fixed;
       bottom: 20px;
@@ -96,67 +80,53 @@
 </head>
 <body>
   <div class="container">
-    <div class="logo">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Logo" />
-    </div>
     <h1>Buka Banned WhatsApp ZanDKav</h1>
 
-    <div id="form-section">
+    <form id="bannedForm">
       <div class="form-group">
         <label for="phone-number">Masukkan Nomor WhatsApp yang Terbanned:</label>
-        <input type="text" id="phone-number" placeholder="Contoh: +6281234567890" required />
+        <input type="text" id="phone-number" placeholder="Contoh: 6281234567890" required />
       </div>
-      <button onclick="submitReport()">Buka Banned</button>
-    </div>
-
-    <div id="success-message" class="success-message">
-      <p>Nomor mu akan dibuka. Tunggu 1x24 jam.</p>
-    </div>
+      <button type="submit">Buka Banned</button>
+    </form>
   </div>
 
-  <!-- Floating WhatsApp Channel Button -->
+  <!-- Tombol WA Channel -->
   <a href="https://whatsapp.com/channel/0029Vaqe6AA5PO13FUcYkJ3b" class="wa-float" target="_blank" title="Kunjungi Saluran WhatsApp">
     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA Channel" />
   </a>
 
   <script>
-    function submitReport() {
+    document.getElementById('bannedForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
       const phoneNumber = document.getElementById('phone-number').value;
 
       if (!phoneNumber) {
-        alert('Silakan masukkan nomor WhatsApp yang terbanned');
+        alert("Silakan masukkan nomor WhatsApp terlebih dahulu.");
         return;
       }
 
-      const subject = "Report WhatsApp Banned Number: " + phoneNumber;
-      const body = `I would like to report a serious abuse issue involving unofficial WhatsApp MOD apps (like GBWhatsApp, YoWhatsApp, Delta WhatsApp, etc.).
+      // Pesan otomatis (gabungan seperti sebelumnya)
+      const message = `
+Saya ingin melaporkan kasus banned nomor WhatsApp berikut:
 
-These apps allow users to:
-1. Send normal messages to a target.
-2. After sending, modify the message to include things like pornographic content, gambling ads, or spam.
-3. Use built-in features to mass-report the target.
+Nomor: ${phoneNumber}
 
-As a result, the victim's number (${phoneNumber}) is banned even though they didn't actually send any harmful content. The system seems to trust the modified message from the reporter's side.
+Saya meyakini bahwa pelanggaran terjadi tanpa disengaja atau akibat dari penyalahgunaan fitur report oleh pengguna WhatsApp MOD seperti GBWhatsApp atau YoWhatsApp.
 
-This method is being used to ban innocent users unfairly.
+Mohon pertimbangan dan peninjauan ulang terhadap nomor tersebut.
 
-Suggested actions:
-- Review the mass reporting system and verify from both sender and receiver sides.
-- Detect and block WhatsApp MODs with message-editing and auto-report tools.
-- Add better appeal options for banned users.
+Terima kasih.
+      `.trim();
 
-Please look into this, as it affects many innocent users.
-Please reply to this message from Gmail and open it from Gmail because my cellphone no longer has a number so I can't chat, and also my cellphone doesn't support WhatsApp web.
+      // Encode URL
+      const encodedMessage = encodeURIComponent(message);
+      const redirectURL = `https://www.whatsapp.com/contact/?subject=messenger&phone=${phoneNumber}&message=${encodedMessage}`;
 
-Thank you`;
-
-      const mailtoLink = `mailto:support@support.whatsapp.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-
-      window.location.href = mailtoLink;
-
-      document.getElementById('form-section').style.display = 'none';
-      document.getElementById('success-message').style.display = 'block';
-    }
+      // Arahkan ke form WhatsApp
+      window.location.href = redirectURL;
+    });
   </script>
 </body>
 </html>
