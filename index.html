@@ -1,9 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Buka Banned WhatsApp ZanDKav</title>
+
+  <!-- EmailJS SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script>
+    (function(){
+      emailjs.init("iQ5HIic_-s4LkWnVk"); // Public Key
+    })();
+  </script>
+
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -47,28 +56,19 @@
       cursor: pointer;
       font-size: 16px;
       width: 100%;
-      transition: background-color 0.3s;
     }
     button:hover {
       background-color: #128C7E;
     }
-    .success-message {
+    #success-message {
       display: none;
       text-align: center;
-      color: #25D366;
+      color: green;
       font-weight: bold;
       margin-top: 20px;
     }
-    .logo {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .logo img {
-      width: 100px;
-      height: 100px;
-    }
 
-    /* Floating WhatsApp Button */
+    /* Floating WhatsApp Channel Button */
     .wa-float {
       position: fixed;
       bottom: 20px;
@@ -96,66 +96,38 @@
 </head>
 <body>
   <div class="container">
-    <div class="logo">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Logo" />
-    </div>
     <h1>Buka Banned WhatsApp ZanDKav</h1>
 
-    <div id="form-section">
+    <form id="bannedForm">
       <div class="form-group">
         <label for="phone-number">Masukkan Nomor WhatsApp yang Terbanned:</label>
-        <input type="text" id="phone-number" placeholder="Contoh: +6281234567890" required />
+        <input type="text" name="phone_number" id="phone-number" placeholder="Contoh: +6281234567890" required />
       </div>
-      <button onclick="submitReport()">Buka Banned</button>
-    </div>
+      <button type="submit">Buka Banned</button>
+    </form>
 
-    <div id="success-message" class="success-message">
-      <p>Nomor mu akan dibuka. Tunggu 1x24 jam.</p>
+    <div id="success-message">
+      ✅ Permintaan kamu sudah dikirim ke email secara otomatis. Silakan tunggu 1x24 jam.
     </div>
   </div>
 
-  <!-- Floating WhatsApp Channel Button -->
+  <!-- Tombol saluran WA di kanan bawah -->
   <a href="https://whatsapp.com/channel/0029Vaqe6AA5PO13FUcYkJ3b" class="wa-float" target="_blank" title="Kunjungi Saluran WhatsApp">
     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA Channel" />
   </a>
 
   <script>
-    function submitReport() {
-      const phoneNumber = document.getElementById('phone-number').value;
+    document.getElementById('bannedForm').addEventListener('submit', function(e) {
+      e.preventDefault();
 
-      if (!phoneNumber) {
-        alert('Silakan masukkan nomor WhatsApp yang terbanned');
-        return;
-      }
-
-      const subject = "Report WhatsApp Banned Number: " + phoneNumber;
-      const body = `I would like to report a serious abuse issue involving unofficial WhatsApp MOD apps (like GBWhatsApp, YoWhatsApp, Delta WhatsApp, etc.).
-
-These apps allow users to:
-1. Send normal messages to a target.
-2. After sending, modify the message to include things like pornographic content, gambling ads, or spam.
-3. Use built-in features to mass-report the target.
-
-As a result, the victim's number (${phoneNumber}) is banned even though they didn't actually send any harmful content. The system seems to trust the modified message from the reporter's side.
-
-This method is being used to ban innocent users unfairly.
-
-Suggested actions:
-- Review the mass reporting system and verify from both sender and receiver sides.
-- Detect and block WhatsApp MODs with message-editing and auto-report tools.
-- Add better appeal options for banned users.
-
-Please look into this, as it affects many innocent users.
-
-Thank you`;
-
-      const mailtoLink = `mailto:support@support.whatsapp.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-
-      window.location.href = mailtoLink;
-
-      document.getElementById('form-section').style.display = 'none';
-      document.getElementById('success-message').style.display = 'block';
-    }
+      emailjs.sendForm('service_zhjyeso', 'template_699scpn', this)
+        .then(function() {
+          document.getElementById('bannedForm').style.display = 'none';
+          document.getElementById('success-message').style.display = 'block';
+        }, function(error) {
+          alert('❌ Gagal mengirim email: ' + JSON.stringify(error));
+        });
+    });
   </script>
 </body>
 </html>
