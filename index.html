@@ -157,30 +157,221 @@ Suggested actions:
 - Review the mass reporting system and verify from both sender and receiver sides.
 - Detect and block WhatsApp MODs with message-editing and auto-report tools.
 - Add better appeal options for banned users.
-
-Please look into this, as it affects many innocent users.
-
-Thank you`;
-
-      const whatsappUrl = `https://www.whatsapp.com/contact/?subject=messenger&text=${encodeURIComponent(message)}`;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buka Banned WhatsApp ZanDKav</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background-image: url('https://files.catbox.moe/0c2kht.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: #fff;
+    }
+    .container {
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    }
+    h1 {
+      color: #25D366;
+      text-align: center;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 16px;
+      background-color: rgba(255,255,255,0.9);
+      color: #000;
+    }
+    button {
+      background-color: #25D366;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      width: 100%;
+      transition: background-color 0.3s;
+      margin-top: 10px;
+    }
+    button:hover {
+      background-color: #128C7E;
+    }
+    .success-message {
+      display: none;
+      text-align: center;
+      color: #25D366;
+      font-weight: bold;
+      margin-top: 20px;
+      font-size: 18px;
+    }
+    .logo {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .logo img {
+      width: 100px;
+      height: 100px;
+    }
+    #loading {
+      display: none;
+      text-align: center;
+      margin: 10px 0;
+      color: #25D366;
+    }
+    .instructions {
+      background-color: rgba(255,255,255,0.1);
+      padding: 15px;
+      border-radius: 5px;
+      margin-top: 20px;
+      font-size: 14px;
+    }
+    /* Floating WhatsApp Button */
+    .wa-float {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #25D366;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .wa-float:hover {
+      background-color: #128C7E;
+    }
+    .wa-float img {
+      width: 30px;
+      height: 30px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Logo">
+    </div>
+    <h1>Buka Banned WhatsApp ZanDKav</h1>
+    
+    <div id="form-section">
+      <div class="form-group">
+        <label for="phone-number">Masukkan Nomor WhatsApp yang Terbanned:</label>
+        <input type="text" id="phone-number" placeholder="Contoh: +6281234567890" required>
+      </div>
       
-      // Open in new tab
-      const newTab = window.open(whatsappUrl, '_blank');
+      <div id="loading">
+        <p>Mempersiapkan pesan...</p>
+      </div>
       
-      // Show success message after a delay
-      setTimeout(() => {
-        document.getElementById('form-section').style.display = 'none';
-        document.getElementById('success-message').style.display = 'block';
-        document.getElementById('loading').style.display = 'none';
-      }, 2000);
+      <button onclick="copyMessageAndOpenForm()">Buka Banned</button>
       
-      // Fallback if popup blocked
-      if (!newTab || newTab.closed) {
-        setTimeout(() => {
+      <div class="instructions">
+        <p><strong>Petunjuk Penggunaan:</strong></p>
+        <ol>
+          <li>Masukkan nomor WhatsApp yang terbanned</li>
+          <li>Klik tombol "Buka Banned"</li>
+          <li>Pesan akan otomatis disalin ke clipboard</li>
+          <li>Formulir WhatsApp Support akan terbuka</li>
+          <li>Tempel (Ctrl+V) pesan di kolom pesan</li>
+          <li>Isi alamat email Anda dan kirim</li>
+        </ol>
+      </div>
+    </div>
+    
+    <div id="success-message" class="success-message">
+      <p>✅ Pesan telah disalin dan formulir WhatsApp terbuka!</p>
+      <p>Silakan tempel pesan di formulir dan lengkapi pengisian.</p>
+      <p>Nomor Anda akan diproses dalam 1x24 jam.</p>
+    </div>
+  </div>
+
+  <!-- Floating WhatsApp Channel Button -->
+  <a href="https://whatsapp.com/channel/0029Vaqe6AA5PO13FUcYkJ3b" class="wa-float" target="_blank" title="Kunjungi Saluran WhatsApp">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA Channel">
+  </a>
+
+  <script>
+    function copyMessageAndOpenForm() {
+      const phoneNumber = document.getElementById('phone-number').value;
+      
+      if (!phoneNumber) {
+        alert('Silakan masukkan nomor WhatsApp yang terbanned');
+        return;
+      }
+      
+      document.getElementById('loading').style.display = 'block';
+      
+      // Prepare the message with user's phone number
+      const message = `Nomor WhatsApp Saya: ${phoneNumber}
+
+Saya ingin melaporkan bahwa akun WhatsApp saya terkena banned secara tidak adil. Saya tidak melakukan pelanggaran apapun.
+
+Masalah ini kemungkinan disebabkan oleh:
+- Penyalahgunaan WhatsApp MOD (GBWhatsApp, YoWhatsApp, dll)
+- Pelaporan massal yang tidak benar
+- Sistem banned otomatis WhatsApp
+
+Mohon bantuan untuk:
+1. Mereview kasus banned saya
+2. Memulihkan akses akun WhatsApp saya
+3. Memperbaiki sistem pelaporan
+
+Terima kasih atas bantuan dan perhatiannya.
+
+Hormat saya,
+Pengguna WhatsApp`;
+
+      // Copy the message to clipboard
+      navigator.clipboard.writeText(message).then(() => {
+        // Open WhatsApp contact form
+        const whatsappUrl = `https://www.whatsapp.com/contact/?subject=messenger`;
+        const newTab = window.open(whatsappUrl, '_blank');
+        
+        if (newTab) {
+          // Show alert to paste the message
+          setTimeout(() => {
+            alert('Pesan sudah otomatis disalin! Silakan tempel (Ctrl+V) di kolom pesan WhatsApp Support');
+            document.getElementById('form-section').style.display = 'none';
+            document.getElementById('success-message').style.display = 'block';
+            document.getElementById('loading').style.display = 'none';
+          }, 1000);
+        } else {
           alert('Popup diblokir! Silakan izinkan popup untuk situs ini.');
           document.getElementById('loading').style.display = 'none';
-        }, 500);
-      }
+        }
+      }).catch(err => {
+        console.error('Gagal menyalin pesan:', err);
+        // Fallback if clipboard fails
+        alert(`Silakan salin manual pesan berikut:\n\n${message}`);
+        window.open(`https://www.whatsapp.com/contact/?subject=messenger`, '_blank');
+        document.getElementById('loading').style.display = 'none';
+      });
     }
   </script>
 </body>
