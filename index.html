@@ -356,23 +356,222 @@ Pengguna WhatsApp`;
         if (newTab) {
           // Show alert to paste the message
           setTimeout(() => {
-            alert('Pesan sudah otomatis disalin! Silakan tempel (Ctrl+V) di kolom pesan WhatsApp Support');
-            document.getElementById('form-section').style.display = 'none';
-            document.getElementById('success-message').style.display = 'block';
-            document.getElementById('loading').style.display = 'none';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buka Banned WhatsApp ZanDKav</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background-image: url('https://files.catbox.moe/0c2kht.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: #fff;
+    }
+    .container {
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    }
+    h1 {
+      color: #25D366;
+      text-align: center;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 16px;
+      background-color: rgba(255,255,255,0.9);
+      color: #000;
+    }
+    button {
+      background-color: #25D366;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      width: 100%;
+      transition: background-color 0.3s;
+      margin-top: 10px;
+    }
+    button:hover {
+      background-color: #128C7E;
+    }
+    .success-message {
+      display: none;
+      text-align: center;
+      color: #25D366;
+      font-weight: bold;
+      margin-top: 20px;
+      font-size: 18px;
+    }
+    .logo {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .logo img {
+      width: 100px;
+      height: 100px;
+    }
+    #loading {
+      display: none;
+      text-align: center;
+      margin: 10px 0;
+      color: #25D366;
+    }
+    .instructions {
+      background-color: rgba(255,255,255,0.1);
+      padding: 15px;
+      border-radius: 5px;
+      margin-top: 20px;
+      font-size: 14px;
+    }
+    .wa-float {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #25D366;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .wa-float:hover {
+      background-color: #128C7E;
+    }
+    .wa-float img {
+      width: 30px;
+      height: 30px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Logo">
+    </div>
+    <h1>Buka Banned WhatsApp ZanDKav</h1>
+    
+    <div id="form-section">
+      <div class="form-group">
+        <label for="phone-number">Masukkan Nomor WhatsApp yang Terbanned:</label>
+        <input type="text" id="phone-number" placeholder="Contoh: +6281234567890" required>
+      </div>
+      
+      <div id="loading">
+        <p>Memproses permintaan Anda...</p>
+      </div>
+      
+      <button id="submit-btn">Buka Banned</button>
+      
+      <div class="instructions">
+        <p><strong>Petunjuk Penggunaan:</strong></p>
+        <ol>
+          <li>Masukkan nomor WhatsApp yang terbanned</li>
+          <li>Klik tombol "Buka Banned"</li>
+          <li>Pesan akan otomatis disalin</li>
+          <li>Formulir WhatsApp akan terbuka</li>
+          <li>Tempel (Ctrl+V) pesan di kolom yang tersedia</li>
+          <li>Kirim formulir</li>
+        </ol>
+      </div>
+    </div>
+    
+    <div id="success-message" class="success-message">
+      <p>✅ Proses berhasil!</p>
+      <p>Silakan tempel pesan yang sudah disalin ke formulir WhatsApp.</p>
+      <p>Nomor Anda akan diproses dalam 1x24 jam.</p>
+    </div>
+  </div>
+
+  <!-- Floating WhatsApp Channel Button -->
+  <a href="https://whatsapp.com/channel/0029Vaqe6AA5PO13FUcYkJ3b" class="wa-float" target="_blank" title="Kunjungi Saluran WhatsApp">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA Channel">
+  </a>
+
+  <script>
+    document.getElementById('submit-btn').addEventListener('click', function() {
+      const phoneNumber = document.getElementById('phone-number').value.trim();
+      
+      if (!phoneNumber) {
+        alert('Silakan masukkan nomor WhatsApp yang terbanned');
+        return;
+      }
+      
+      document.getElementById('loading').style.display = 'block';
+      
+      // Prepare the message
+      const message = `Nomor WhatsApp Saya: ${phoneNumber}
+
+Saya ingin melaporkan bahwa akun WhatsApp saya terkena banned secara tidak adil. Berikut detail masalahnya:
+
+1. Saya tidak menggunakan WhatsApp MOD (GBWhatsApp, YoWhatsApp, dll)
+2. Tidak pernah mengirim konten terlarang
+3. Kemungkinan menjadi korban pelaporan massal
+
+Mohon bantuan untuk:
+- Mereview status banned akun saya
+- Memulihkan akses ke akun WhatsApp
+- Memeriksa kemungkinan penyalahgunaan sistem
+
+Terima kasih atas bantuannya.`;
+
+      // Copy to clipboard
+      navigator.clipboard.writeText(message).then(() => {
+        // Open WhatsApp contact form
+        try {
+          const whatsappUrl = `https://www.whatsapp.com/contact/?subject=banned_account`;
+          const newWindow = window.open(whatsappUrl, '_blank');
+          
+          if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+            throw new Error('Popup blocked');
+          }
+          
+          // Show success
+          document.getElementById('form-section').style.display = 'none';
+          document.getElementById('success-message').style.display = 'block';
+          document.getElementById('loading').style.display = 'none';
+          
+          // Alert user to paste
+          setTimeout(() => {
+            alert('Pesan sudah disalin! Silakan tempel (Ctrl+V) di formulir WhatsApp yang telah terbuka');
           }, 1000);
-        } else {
-          alert('Popup diblokir! Silakan izinkan popup untuk situs ini.');
+          
+        } catch (error) {
+          alert('Harap izinkan popup untuk situs ini. Setelah itu, klik tombol "Buka Banned" lagi.');
           document.getElementById('loading').style.display = 'none';
         }
       }).catch(err => {
-        console.error('Gagal menyalin pesan:', err);
-        // Fallback if clipboard fails
-        alert(`Silakan salin manual pesan berikut:\n\n${message}`);
-        window.open(`https://www.whatsapp.com/contact/?subject=messenger`, '_blank');
+        console.error('Failed to copy:', err);
+        alert('Gagal menyalin otomatis. Silakan salin manual teks berikut:\n\n' + message);
         document.getElementById('loading').style.display = 'none';
       });
-    }
+    });
   </script>
 </body>
 </html>
